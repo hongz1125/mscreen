@@ -1,0 +1,29 @@
+<html>
+<head>
+</head>
+<body>
+<iframe src="phone.html" style="float:left;width:400px;height:400px;"></iframe>
+<iframe src="2048/index.html" style="float:left;width:400px;height:400px;"></iframe>
+<button id="aaa">aaa</button>
+<button id="bbb">bbb</button>
+<script src="static/jquery-1.11.1.min.js"></script> 
+<script>
+$(function(){
+	$("#aaa").on("keydown",function(event,data){
+		event.keyCode = event.keyCode ? event.keyCode : 66;
+		console.log(event);	
+		console.log(data);	
+		//event.preventDefault(event);
+		return false;
+	});
+	$("body").on("keydown",function(event){
+		console.log(event);	
+		console.log(event.keyCode)
+		$("#aaa").trigger("keydown",event);
+		//event.preventDefault(event);
+		return false;
+	})
+})
+</script>
+</body>
+</html>

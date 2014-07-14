@@ -1,0 +1,43 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>连接信息</th>
+        <th>服务端动作</th>
+    </tr>
+    <tr>
+        <td id="message"></td>
+        <td id="sAction"></td>
+    </tr>
+</table>
+<script src="static/jquery-1.11.1.min.js"></script> 
+<script>
+var message = document.getElementById("message");
+var sAction = document.getElementById("sAction");
+var ws = new WebSocket('ws://10.105.77.45:8001');
+ws.onopen = function(e){
+	message.innerHTML +="连接成功;";
+	var userId = Math.round(Math.random()*100000000);
+	ws.send('{"userId":"'+userId+'"}');
+}
+ws.onclose = function(e){
+	message.innerHTML += "服务器关闭;";
+}
+ws.onerror = function(e){
+	message.innerHTML += "连接出错;";
+}
+ws.onmessage = function(e){
+	var obj = JSON.parse(e.data);
+	if(obj.action != undefined){
+		sAction.innerHTML += obj.desc+"<br />";
+	};
+}
+function keyCodeDo(num){}
+</script>
+</body>
+</html>
